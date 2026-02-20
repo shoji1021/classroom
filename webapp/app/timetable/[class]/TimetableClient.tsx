@@ -49,18 +49,20 @@ export default function TimetableClient({ className }: TimetableClientProps) {
   }, []);
 
   const loadChanges = async () => {
-  try {
-    // 修正：/changes.json (静的ファイル) ではなく /api/changes (APIルート) を叩く
-    const response = await fetch('/api/changes', { cache: 'no-store' });
+    try {
+      // 修正：内部ファイルではなく、Route Handler を経由してWorkersを取得
+      const response = await fetch('/api/changes', { 
+        cache: 'no-store' // キャッシュを強制無効化
+      });
+      
       if (!response.ok) {
         throw new Error('授業変更データの取得に失敗しました');
       }
       const data = await response.json();
-      console.log('Loaded changes from API:', data.slice(0, 5));
-      console.log('Total changes:', data.length);
+      
+      console.log('APIから取得成功:', data.length, '件');
       setChanges(data);
       
-      // 授業変更データの最後の日付を取得
       if (data.length > 0) {
         const maxDateStr = data.reduce((max: string, change: any) => {
           return change.date > max ? change.date : max;
@@ -69,11 +71,10 @@ export default function TimetableClient({ className }: TimetableClientProps) {
         const maxDate = new Date(maxDateStr);
         generateWeekUpTo(maxDate);
       } else {
-        // 変更データがない場合は平日5日分
         generateDefaultWeek();
       }
     } catch (error) {
-      console.error('授業変更の読み込みに失敗しました:', error);
+      console.error('授業変更の読み込み失敗:', error);
       setChanges([]);
       generateDefaultWeek();
     }
@@ -405,9 +406,10 @@ export default function TimetableClient({ className }: TimetableClientProps) {
             {Array.from(new Set(
               changes
                 .filter(c => {
-                  // 今表示しているクラス名（例: "3M"）が含まれているか、
-                  // または「全学年」向けのデータだけを抽出
-                  return c.classYear === className || c.description.includes('全学年');
+                  // クラス名が一致するか、説明文に自分のクラス名が入っているものを抽出
+                  return c.classYear === className || 
+                         c.description.includes(className) || 
+                         c.description.includes('全学年');
                 })
                 .map(c => c.description)
             )).map((description) => (
@@ -416,10 +418,6 @@ export default function TimetableClient({ className }: TimetableClientProps) {
               </li>
             ))}
           </ul>
-          {/* デバッグ用：もし何も出ない場合はここを表示させてみる */}
-          {changes.filter(c => c.classYear === className).length === 0 && (
-            <p className={styles.noChangeMessage}>現在、このクラスの変更情報はありません。</p>
-          )}
         </div>
       )}
     </div>
