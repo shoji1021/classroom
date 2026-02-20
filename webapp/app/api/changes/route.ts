@@ -10,7 +10,11 @@ export async function GET() {
   try {
     // 解決策：URLの末尾にタイムスタンプを付けてキャッシュを物理的に回避する
     const timestamp = new Date().getTime();
-    const response = await fetch(`${API_URL}?t=${timestamp}`, {
+    const url = `${API_URL}?t=${timestamp}`;
+    
+    console.log('[route.ts] APIリクエスト開始:', url);
+    
+    const response = await fetch(url, {
       cache: 'no-store',
       headers: {
         'Pragma': 'no-cache',
@@ -18,15 +22,31 @@ export async function GET() {
       }
     });
     
+    console.log('[route.ts] APIレスポンスステータス:', response.status);
+    
     if (!response.ok) {
-      throw new Error(`API サーバーのエラー: ${response.status}`);
+      const errorText = await response.text();
+      console.error('[route.ts] API エラーレスポンス:', errorText);
+      throw new Error(`API サーバーのエラー: ${response.status} ${errorText}`);
     }
 
     const changes = await response.json();
+    console.log('[route.ts] 取得データ:', changes.length, '件');
+    
+    // データが配列か確認
+    if (!Array.isArray(changes)) {
+      console.warn('[route.ts] APIが配列を返していません:', typeof changes);
+      return NextResponse.json([]);
+    }
+    
     return NextResponse.json(changes);
 
   } catch (error: any) {
-    console.error('授業変更データの取得エラー:', error);
-    return NextResponse.json([]);
+    console.error('[route.ts] 授業変更データの取得エラー:', error.message || error);
+    // エラーの詳細をクライアントに返す（デバッグ用）
+    return NextResponse.json({
+      error: error.message || 'Unknown error',
+      timestamp: new Date().toISOString()
+    }, { status: 500 });
   }
 }
