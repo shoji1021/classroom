@@ -21,19 +21,6 @@ function parseClass(text: string): ClassInfo | null {
   return match ? { year: match[1], type: match[2].toUpperCase() } : null;
 }
 
-function parsePeriods(text: string): number[] {
-  const normalized = normalizeText(text);
-  const periods: number[] = [];
-  const singleMatches = normalized.match(/([1-6])\s*h/gi);
-  if (singleMatches) {
-    singleMatches.forEach(m => {
-      const n = parseInt(m.match(/[1-6]/)![0]);
-      if (!periods.includes(n)) periods.push(n);
-    });
-  }
-  return periods.sort((a, b) => a - b);
-}
-
 function parseDate(text: string, year: number = 2026): string | null {
   const normalized = normalizeText(text);
   const match = normalized.match(/(\d{1,2})月(\d{1,2})日/);
@@ -75,15 +62,27 @@ export default {
 
         const normalized = normalizeText(text);
         
-        // 1. クラス(1M, 2Fなど)を基準に分割
+        // クラス(1M, 2Fなど)を基準に分割して、複数の情報を処理する
         const classSegments = normalized.split(/([1-3][FM])/gi).filter(Boolean);
         
+        // 全学年の処理
+        if (text.includes('全学年') || text.includes('全校')) {
+          const isHomeStudy = text.includes('自宅学習');
+          ['1','2','3'].forEach(y => {
+            ['F','M'].forEach(t => {
+              for(let p = 1; p <= 6; p++) {
+                changes.push({ date, classYear: `${y}${t}`, period: p, day: '', newSubject: isHomeStudy ? '自宅学習' : '行事等', description: text });
+              }
+            });
+          });
+          return; // 全学年ならここで次の行へ
+        }
+
         let currentClassYear = "";
 
         for (let i = 0; i < classSegments.length; i++) {
           const segment = classSegments[i].trim();
           
-          // クラス名(1Mなど)に一致するかチェック
           if (segment.match(/^[1-3][FM]$/i)) {
             currentClassYear = segment.toUpperCase();
             continue;
@@ -91,27 +90,26 @@ export default {
 
           if (!currentClassYear) continue;
 
-          // 2. 時限と科目のペアを探す (例: "1h 英I 2h 清掃")
-          // 時限(1-6h)から、次の時限が始まる前までを科目名として取得
-          const periodMatches = segment.matchAll(/([1-6])h\s*([^1-6]+)/gi);
+          // 「1h 英I」のような時限と科目のペアを探す
+          const periodMatches = Array.from(segment.matchAll(/([1-6])h\s*([^1-6]+)/gi));
           let found = false;
 
           for (const match of periodMatches) {
             found = true;
-            const period = parseInt(match[1]);
-            const subject = match[2].trim().split(/[\s,、]/)[0]; // スペースや読点の前までを科目名とする
+            const period = parseInt(match[1]); // ★ここが重要：マイナス1しない！
+            const subject = match[2].trim().split(/[\s,、]/)[0]; 
 
             changes.push({
               date,
               classYear: currentClassYear,
-              period: period, // Next.js側の表示に合わせて1〜6の数値
+              period: period,
               day: '',
               newSubject: subject,
               description: text
             });
           }
 
-          // 時限が書いていないがクラス名がある場合（全日対応など）
+          // 「清掃」などの記載があるのに「1h」が書いていない場合の予備処理
           if (!found && segment.length > 0) {
              const subject = segment.split(/[\s,、]/)[0] || '授業変更';
              for (let p = 1; p <= 6; p++) {
