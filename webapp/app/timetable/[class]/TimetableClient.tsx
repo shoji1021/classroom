@@ -49,8 +49,9 @@ export default function TimetableClient({ className }: TimetableClientProps) {
   }, []);
 
   const loadChanges = async () => {
-    try {
-      const response = await fetch('/changes.json');
+  try {
+    // 修正：/changes.json (静的ファイル) ではなく /api/changes (APIルート) を叩く
+    const response = await fetch('/api/changes', { cache: 'no-store' });
       if (!response.ok) {
         throw new Error('授業変更データの取得に失敗しました');
       }
@@ -397,17 +398,28 @@ export default function TimetableClient({ className }: TimetableClientProps) {
           ))}
         </div>
       </div>
-
-      {changes.length > 0 && (
+{changes.length > 0 && (
         <div className={styles.changesSection}>
           <h2>授業変更情報</h2>
           <ul className={styles.changesList}>
-            {Array.from(new Set(changes.map(c => c.description))).map((description) => (
+            {Array.from(new Set(
+              changes
+                .filter(c => {
+                  // 今表示しているクラス名（例: "3M"）が含まれているか、
+                  // または「全学年」向けのデータだけを抽出
+                  return c.classYear === className || c.description.includes('全学年');
+                })
+                .map(c => c.description)
+            )).map((description) => (
               <li key={description} className={styles.changeItem}>
                 {description}
               </li>
             ))}
           </ul>
+          {/* デバッグ用：もし何も出ない場合はここを表示させてみる */}
+          {changes.filter(c => c.classYear === className).length === 0 && (
+            <p className={styles.noChangeMessage}>現在、このクラスの変更情報はありません。</p>
+          )}
         </div>
       )}
     </div>
