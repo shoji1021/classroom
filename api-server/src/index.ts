@@ -73,57 +73,35 @@ export default {
         const date = parseDate(text);
         if (!date) return;
 
-        const normalized = normalizeText(text);
-        
-        // --- 修正ポイント：セグメントごとに解析 ---
-        // クラス名(1Mなど)を基準にテキストを分割して、それぞれの科目を特定しやすくします
-        const segments = normalized.split(/([1-3][FM])/gi).filter(Boolean);
-        let currentClasses: ClassInfo[] = [];
+        // 改行や空白で分割し、1行（または1情報の塊）ずつ処理する
+        const lines = text.split(/[\n\r、,]/); 
 
-        // 全学年などの処理
-        if (text.includes('全学年') || text.includes('全校')) {
-          ['1','2','3'].forEach(y => ['F','M'].forEach(t => currentClasses.push({year:y, type:t})));
-        }
+        lines.forEach(line => {
+          const normalized = normalizeText(line);
+          const classInfo = parseClass(normalized);
+          const periods = parsePeriods(normalized);
 
-        for (let i = 0; i < segments.length; i++) {
-          const seg = segments[i];
-          const classInfo = parseClass(seg);
+          if (!classInfo || periods.length === 0) return;
 
-          if (classInfo) {
-            // クラス名が見つかった場合、その次のセグメントに時限と科目があるはず
-            currentClasses = [classInfo];
-            continue;
-          }
-
-          // このセグメント内の時限(1h, 2h...)を探す
-          const periods = parsePeriods(seg);
-          if (currentClasses.length === 0) continue;
-
-          // 科目名を抽出（時限の後の文字列を取得）
-          // 例: "1h 英I" -> "英I"
-          let subject = seg.replace(/[1-6]h/gi, '').trim()
-                           .replace(/^[、,（）()]*/, '') // 不要な記号をカット
-                           .split(/[\s　]/)[0] || '授業変更';
-
-          const classYearList = currentClasses.map(c => `${c.year}${c.type}`);
+          const classYear = `${classInfo.year}${classInfo.type}`;
           
-          if (periods.length === 0) {
-            // 時限指定がない場合は全日(1-6)として登録
-            classYearList.forEach(classYear => {
-              for (let p = 1; p <= 6; p++) {
-                changes.push({ date, classYear, period: p, day: '', newSubject: subject, description: text });
-              }
+          // 【ここがポイント】
+          // その「行」の中で、時限（1hなど）より後ろにある文字列を科目名として抜き出す
+          const subjectMatch = normalized.match(/[1-6]h\s*(.+)$/);
+          const subject = subjectMatch ? subjectMatch[1].trim() : '授業変更';
+
+          periods.forEach((p) => {
+            // period: p - 1 ではなく p そのまま（Next.jsの表示枠に合わせる）
+            changes.push({ 
+              date, 
+              classYear, 
+              period: p, 
+              day: '', 
+              newSubject: subject, 
+              description: line 
             });
-          } else {
-            // 指定された時限ごとに登録
-            classYearList.forEach(classYear => {
-              periods.forEach(p => {
-                // period: p - 1 ではなく p そのままにする
-                changes.push({ date, classYear, period: p, day: '', newSubject: subject, description: text });
-              });
-            });
-          }
-        }
+          });
+        });
       });
 
       return new Response(JSON.stringify(changes), {
