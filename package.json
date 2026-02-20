@@ -1,0 +1,26 @@
+{
+  "name": "classroom-webapp",
+  "version": "1.0.0",
+  "description": "Googleフォームから授業変更情報を定期取得するシステム",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "fetch": "ts-node src/fetchFormData.ts"
+  },
+  "keywords": ["google-forms", "classroom", "automation"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.5",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2",
+    "@types/cheerio": "^0.22.35"
+  }
+}

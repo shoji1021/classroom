@@ -1,0 +1,82 @@
+{
+  "月": [
+    { "period": 0, "subject": "数学A", "location": "", "course": "", "color": "gray" },
+    { "period": 1, "subject": "歴史総合", "location": "", "course": "", "color": "gray" },
+    { "period": 2, "subject": "英語Ⅱ", "location": "プロA,B", "course": "", "color": "purple" },
+    { "period": 3, "subject": "英語Ⅱ", "location": "プロA,B", "course": "", "color": "purple" },
+    { "period": 4, "subject": "", "location": "", "course": "", "color": "" },
+    { "period": 5, "subject": "情報テク", "location": "DS", "course": "", "color": "blue" },
+    { "period": 6, "subject": "情報セキュ", "location": "PG", "course": "", "color": "orange" },
+    { "period": 7, "subject": "", "location": "", "course": "", "color": "" }
+  ],
+  "火": [
+    { 
+      "period": 0, 
+      "options": [
+        { "subject": "データベース", "location": "SY", "course": "システム", "color": "red" },
+        { "subject": "メディアとサービス", "location": "MM", "course": "デザイン", "color": "yellow" }
+      ]
+    },
+    { 
+      "period": 1, 
+      "options": [
+        { "subject": "コンテンツ", "location": "MM", "course": "デザイン", "color": "cyan" },
+        { "subject": "ネットワーク", "location": "PG,NW", "course": "システム", "color": "blue" }
+      ]
+    },
+    { "period": 2, "subject": "数学Ⅱ", "location": "", "course": "", "color": "gray" },
+    { "period": 3, "subject": "数学Ⅱ", "location": "", "course": "", "color": "gray" },
+    { "period": 4, "subject": "", "location": "", "course": "", "color": "" },
+    { "period": 5, "subject": "体育Ⅱ", "location": "", "course": "", "color": "blue" },
+    { "period": 6, "subject": "物理基礎", "location": "", "course": "", "color": "gray" },
+    { "period": 7, "subject": "", "location": "", "course": "", "color": "" }
+  ],
+  "水": [
+    { 
+      "period": 0, 
+      "options": [
+        { "subject": "メディアとサービス", "location": "MM", "course": "デザイン", "color": "yellow" },
+        { "subject": "ネットワーク", "location": "PG,NW", "course": "システム", "color": "blue" }
+      ]
+    },
+    { 
+      "period": 1, 
+      "options": [
+        { "subject": "データベース", "location": "SY", "course": "システム", "color": "red" },
+        { "subject": "コンテンツ", "location": "MM", "course": "デザイン", "color": "cyan" }
+      ]
+    },
+    { "period": 2, "subject": "言語文化", "location": "", "course": "", "color": "gray" },
+    { "period": 3, "subject": "英語Ⅱ", "location": "プロA,B", "course": "", "color": "purple" },
+    { "period": 4, "subject": "LHR", "location": "", "course": "", "color": "gray" },
+    { "period": 5, "subject": "言語文化", "location": "", "course": "", "color": "gray" },
+    { "period": 6, "subject": "情報プロ(プログラミングの基礎所得)", "location": "SY", "course": "", "color": "green" },
+    { "period": 7, "subject": "", "location": "", "course": "", "color": "" }
+  ],
+  "木": [
+    { "period": 0, "subject": "情報実習", "location": "PG", "course": "", "color": "gray" },
+    { "period": 1, "subject": "情報実習", "location": "PG", "course": "", "color": "gray" },
+    { "period": 2, "subject": "家庭基礎", "location": "", "course": "", "color": "gray" },
+    { "period": 3, "subject": "家庭基礎", "location": "", "course": "", "color": "gray" },
+    { "period": 4, "subject": "", "location": "", "course": "", "color": "" },
+    { "period": 5, "subject": "体育Ⅱ", "location": "", "course": "", "color": "blue" },
+    { "period": 6, "subject": "保健Ⅱ", "location": "", "course": "", "color": "gray" },
+    { "period": 7, "subject": "", "location": "", "course": "", "color": "" }
+  ],
+  "金": [
+    { 
+      "period": 0, 
+      "options": [
+        { "subject": "コンテンツ", "location": "MM", "course": "デザイン", "color": "cyan" },
+        { "subject": "ネットワーク", "location": "PG,NW", "course": "システム", "color": "blue" }
+      ]
+    },
+    { "period": 1, "subject": "歴史総合", "location": "", "course": "", "color": "gray" },
+    { "period": 2, "subject": "情報セキュ", "location": "PG", "course": "", "color": "orange" },
+    { "period": 3, "subject": "情報プロ(プログラミングの基礎所得)", "location": "SY", "course": "", "color": "green" },
+    { "period": 4, "subject": "", "location": "", "course": "", "color": "" },
+    { "period": 5, "subject": "物理基礎", "location": "", "course": "", "color": "gray" },
+    { "period": 6, "subject": "情報テク", "location": "DS", "course": "", "color": "blue" },
+    { "period": 7, "subject": "", "location": "", "course": "", "color": "" }
+  ]
+}

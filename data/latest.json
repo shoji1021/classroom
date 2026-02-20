@@ -1,0 +1,314 @@
+{
+  "title": "授業変更連絡",
+  "fetchedAt": "2026-02-18T03:33:00.543Z",
+  "changes": [
+    {
+      "date": "2026-02-18",
+      "classes": [
+        {
+          "year": "3",
+          "type": "F"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        1,
+        6
+      ],
+      "subject": "科人",
+      "description": "2月18日（水）３F　１h　科人３M　６h　科人"
+    },
+    {
+      "date": "2026-02-24",
+      "classes": [
+        {
+          "year": "1",
+          "type": "F"
+        },
+        {
+          "year": "1",
+          "type": "M"
+        },
+        {
+          "year": "2",
+          "type": "F"
+        },
+        {
+          "year": "2",
+          "type": "M"
+        },
+        {
+          "year": "3",
+          "type": "F"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        3,
+        4
+      ],
+      "subject": "進路ガイダンス",
+      "description": "2月24日（火）全学年　３、４ｈ　進路ガイダンス"
+    },
+    {
+      "date": "2026-02-25",
+      "classes": [
+        {
+          "year": "2",
+          "type": "M"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        1
+      ],
+      "subject": "LHR",
+      "description": "２月25日（水）２M　１ｈ　ＬＨＲ３Ｍ　１ｈ　ＬＨＲ"
+    },
+    {
+      "date": "2026-02-26",
+      "classes": [
+        {
+          "year": "1",
+          "type": "F"
+        },
+        {
+          "year": "1",
+          "type": "M"
+        },
+        {
+          "year": "2",
+          "type": "F"
+        },
+        {
+          "year": "2",
+          "type": "M"
+        },
+        {
+          "year": "3",
+          "type": "F"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        0
+      ],
+      "subject": "自宅学習",
+      "description": "2月26日（木）全学年　自宅学習"
+    },
+    {
+      "date": "2026-02-27",
+      "classes": [
+        {
+          "year": "1",
+          "type": "F"
+        },
+        {
+          "year": "1",
+          "type": "M"
+        },
+        {
+          "year": "2",
+          "type": "F"
+        },
+        {
+          "year": "2",
+          "type": "M"
+        },
+        {
+          "year": "3",
+          "type": "F"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        0
+      ],
+      "subject": "自宅学習",
+      "description": "2月27日（金）全学年　自宅学習"
+    },
+    {
+      "date": "2026-03-02",
+      "classes": [
+        {
+          "year": "1",
+          "type": "F"
+        },
+        {
+          "year": "1",
+          "type": "M"
+        },
+        {
+          "year": "2",
+          "type": "F"
+        },
+        {
+          "year": "2",
+          "type": "M"
+        },
+        {
+          "year": "3",
+          "type": "F"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        0
+      ],
+      "subject": "自宅学習",
+      "description": "３月2日（月）全学年　自宅学習"
+    },
+    {
+      "date": "2026-03-03",
+      "classes": [
+        {
+          "year": "1",
+          "type": "F"
+        },
+        {
+          "year": "1",
+          "type": "M"
+        },
+        {
+          "year": "2",
+          "type": "F"
+        },
+        {
+          "year": "2",
+          "type": "M"
+        },
+        {
+          "year": "3",
+          "type": "F"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        0
+      ],
+      "subject": "自宅学習",
+      "description": "３月３日（火）全学年　自宅学習"
+    },
+    {
+      "date": "2026-03-04",
+      "classes": [
+        {
+          "year": "1",
+          "type": "F"
+        },
+        {
+          "year": "1",
+          "type": "M"
+        },
+        {
+          "year": "2",
+          "type": "F"
+        },
+        {
+          "year": "2",
+          "type": "M"
+        },
+        {
+          "year": "3",
+          "type": "F"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        0
+      ],
+      "subject": "卒業式予行",
+      "description": "３月４日（水）卒業式予行"
+    },
+    {
+      "date": "2026-03-05",
+      "classes": [
+        {
+          "year": "1",
+          "type": "F"
+        },
+        {
+          "year": "1",
+          "type": "M"
+        },
+        {
+          "year": "2",
+          "type": "F"
+        },
+        {
+          "year": "2",
+          "type": "M"
+        },
+        {
+          "year": "3",
+          "type": "F"
+        },
+        {
+          "year": "3",
+          "type": "M"
+        }
+      ],
+      "periods": [
+        0
+      ],
+      "subject": "卒業式",
+      "description": "３月５日（木）卒業式"
+    }
+  ],
+  "rawItems": [
+    {
+      "title": "例）〇月×日（◇）１Ｆ　３ｈ現国　２Ｍ　３ｈ体育"
+    },
+    {
+      "title": "2月18日（水）３F　１h　科人３M　６h　科人"
+    },
+    {
+      "title": "2月24日（火）全学年　３、４ｈ　進路ガイダンス"
+    },
+    {
+      "title": "２月25日（水）２M　１ｈ　ＬＨＲ３Ｍ　１ｈ　ＬＨＲ"
+    },
+    {
+      "title": "2月26日（木）全学年　自宅学習"
+    },
+    {
+      "title": "2月27日（金）全学年　自宅学習"
+    },
+    {
+      "title": "３月2日（月）全学年　自宅学習"
+    },
+    {
+      "title": "３月３日（火）全学年　自宅学習"
+    },
+    {
+      "title": "３月４日（水）卒業式予行"
+    },
+    {
+      "title": "３月５日（木）卒業式"
+    }
+  ]
+}

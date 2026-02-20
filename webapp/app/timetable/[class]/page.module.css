@@ -1,0 +1,300 @@
+.container {
+  min-height: 100vh;
+  background: #1a1a2e;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  justify-content: space-between;
+}
+
+.backButton {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+
+.backButton:hover {
+  background: #1557b0;
+  box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  flex: 1;
+}
+
+.courseSelector {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.courseButton {
+  padding: 0.5rem 1rem;
+  border: 2px solid #ccc;
+  background: white;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.courseButton:hover {
+  border-color: #1a73e8;
+  color: #1a73e8;
+}
+
+.courseButton.active {
+  background: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+}
+
+.timetableWrapper {
+  overflow-x: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.timetable {
+  display: grid;
+  gap: 0.5rem;
+  min-width: min-content;
+  align-content: start;
+  grid-auto-rows: 85px;
+}
+
+.headerRow {
+  display: contents;
+  margin-bottom: 0.5rem;
+}
+
+.periodHeader {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayHeader {
+  background: #34495e;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+
+.fullDayHeader {
+  background: #e74c3c;
+}
+
+.fullDayBadge {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.changeBadge {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: rgba(255, 200, 0, 0.8);
+  color: #333;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.weekday {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.date {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.periodRow {
+  display: contents;
+}
+
+.periodLabel {
+  background: #ecf0f1;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2c3e50;
+}
+
+.period {
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.period:hover {
+  transform: scale(1.05);
+}
+
+.emptyPeriod {
+  background: #ecf0f1;
+  border-radius: 8px;
+}
+
+.subjectName {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.location {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  opacity: 0.9;
+}
+
+.changedSubject {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.originalSubject {
+  text-decoration: line-through;
+  opacity: 0.7;
+  font-size: 0.85rem;
+}
+
+.arrow {
+  font-size: 1.2rem;
+}
+
+.newSubject {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* 色分け */
+.color-gray {
+  background: var(--color-gray);
+}
+
+.color-red {
+  background: var(--color-red);
+}
+
+.color-yellow {
+  background: var(--color-yellow);
+}
+
+.color-cyan {
+  background: var(--color-cyan);
+}
+
+.color-blue {
+  background: var(--color-blue);
+}
+
+.color-purple {
+  background: var(--color-purple);
+}
+
+.color-orange {
+  background: var(--color-orange);
+}
+
+.color-green {
+  background: var(--color-green);
+}
+
+.changesSection {
+  margin-top: 2rem;
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.changesSection h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.changesList {
+  list-style: none;
+}
+
+.changeItem {
+  padding: 0.75rem;
+  border-left: 4px solid #e74c3c;
+  background: #fff5f5;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.3rem;
+  }
+  
+  .timetableWrapper {
+    padding: 0.5rem;
+  }
+  
+  .period {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    min-height: 60px;
+  }
+}

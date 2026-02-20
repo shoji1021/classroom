@@ -1,0 +1,115 @@
+{
+  "1F": {
+    "月": [],
+    "火": [],
+    "水": [],
+    "木": [],
+    "金": []
+  },
+  "1M": {
+    "月": [],
+    "火": [],
+    "水": [],
+    "木": [],
+    "金": []
+  },
+  "2F": {
+    "月": [
+			{ "period": 0, "subject": "情報プロ", "location": "", "color": "green" },
+      { "period": 1, "subject": "情報セキュ", "location": "PG", "color": "orange" },
+			{ "period": 2, "subject": "数学Ⅱ/英語Ⅱ", "location": "/プロA,B", "color": "blue", "color2": "purple" },
+			{ "period": 3, "subject": "数学Ⅱ/英語Ⅱ", "location": "/プロA,B", "color": "blue", "color2": "purple" },
+      { "period": 4, "subject": "コンテンツ/ ネットワーク", "location": "MM / PG,NW", "color": "cyan", "color2": "blue" },
+      { "period": 5, "subject": "歴史総合", "location": "", "color": "gray" }
+    ],
+    "火": [
+      { "period": 0, "subject": "情報テク", "location": "DS", "color": "blue" },
+			{ "period": 1, "subject": "家庭基礎", "location": "", "color": "gray" },
+			{ "period": 2, "subject": "家庭基礎", "location": "", "color": "gray" },
+			{ "period": 3, "subject": "数学Ⅱ/英語Ⅱ", "location": "/プロA,B", "color": "cyan", "color2": "purple" },
+			{ "period": 4, "subject": "数学A", "location": "", "color": "gray" },
+			{ "period": 5, "subject": "歴史総合", "location": "", "color": "gray" }
+],
+    "水": [
+      { "period": 0, "subject": "情報セキュ", "location": "PG", "color": "orange" },
+			{ "period": 1, "subject": "体育Ⅱ", "location": "体育館", "color": "gray" },
+      { "period": 2, "subject": "数学Ⅱ/英語Ⅱ", "location": "/プロA,B", "color": "cyan", "color2": "purple" },
+      { "period": 3, "subject": "LHR", "location": "", "color": "gray" },
+			{ "period": 4, "subject": "データベース/ メディア", "location": "SY / MM", "color": "red", "color2": "yellow" },
+			{ "period": 5, "subject": "数学A", "location": "", "color": "gray" }
+    ],
+    "木": [
+      { "period": 0, "subject": "物理基礎", "location": "", "color": "gray" },
+      { "period": 1, "subject": "保健Ⅱ", "location": "", "color": "gray" },
+      { "period": 2, "subject": "体育Ⅱ", "location": "体育館", "color": "gray" },
+      { "period": 3, "subject": "言語文化", "location": "", "color": "gray" },
+			{ "period": 4, "subject": "情報実習", "location": "PG", "color": "gray" },
+      { "period": 5, "subject": "情報実習", "location": "PG", "color": "gray" }
+    ],
+    "金": [
+      { "period": 0, "subject": "物理基礎", "location": "", "color": "gray" },
+      { "period": 1, "subject": "言語文化", "location": "", "color": "gray" },
+      { "period": 2, "subject": "情報プロ", "location": "SY", "color": "green" },
+      { "period": 3, "subject": "情報テク", "location": "DS", "color": "blue" },
+      { "period": 4, "subject": "データベース/ メディア", "location": "SY / MM", "color": "red", "color2": "yellow" },
+      { "period": 5, "subject": "コンテンツ/ ネットワーク", "location": "MM / PG,NW", "color": "cyan", "color2": "blue" }
+
+    ]
+  },
+  "2M": {
+    "月": [
+      { "period": 0, "subject": "数学A", "location": "", "color": "gray" },
+      { "period": 1, "subject": "歴史総合", "location": "", "color": "gray" },
+			{ "period": 2, "subject": "数学Ⅱ/英語Ⅱ", "location": "/プロA,B", "color": "blue", "color2": "purple" },
+			{ "period": 3, "subject": "数学Ⅱ/英語Ⅱ", "location": "/プロA,B", "color": "blue", "color2": "purple" },
+      { "period": 4, "subject": "情報テク", "location": "DS", "color": "blue" },
+      { "period": 5, "subject": "情報セキュ", "location": "PG", "color": "orange" }
+    ],
+    "火": [
+      { "period": 0, "subject": "データベース/ メディア", "location": "SY / MM", "color": "red", "color2": "yellow" },
+      { "period": 1, "subject": "コンテンツ/ ネットワーク", "location": "MM / PG,NW", "color": "cyan", "color2": "blue" },
+      { "period": 2, "subject": "言語文化", "location": "", "color": "gray" },
+			{ "period": 3, "subject": "数学Ⅱ/英語Ⅱ", "location": "/プロA,B", "color": "cyan", "color2": "purple" },
+			{ "period": 4, "subject": "体育Ⅱ", "location": "体育館", "color": "gray" },
+      { "period": 5, "subject": "物理基礎", "location": "", "color": "gray" }
+    ],
+    "水": [
+			{ "period": 0, "subject": "数学A", "location": "", "color": "gray" },
+      { "period": 1, "subject": "データベース/ メディア", "location": "SY / MM", "color": "red", "color2": "yellow" },
+      { "period": 2, "subject": "数学Ⅱ/英語Ⅱ", "location": "/プロA,B", "color": "cyan", "color2": "purple" },
+      { "period": 3, "subject": "LHR", "location": "", "color": "gray" },
+      { "period": 4, "subject": "言語文化", "location": "", "color": "gray" },
+			{ "period": 5, "subject": "情報プロ", "location": "", "color": "green" }
+    ],
+    "木": [
+      { "period": 0, "subject": "情報実習", "location": "PG", "color": "gray" },
+      { "period": 1, "subject": "情報実習", "location": "PG", "color": "gray" },
+      { "period": 2, "subject": "家庭基礎", "location": "", "color": "gray" },
+      { "period": 3, "subject": "家庭基礎", "location": "", "color": "gray" },
+      { "period": 4, "subject": "体育Ⅱ", "location": "体育館", "color": "gray" },
+      { "period": 5, "subject": "保健Ⅱ", "location": "", "color": "gray" }
+    ],
+    "金": [
+      { "period": 0, "subject": "コンテンツ/ ネットワーク", "location": "MM / PG,NW", "color": "cyan", "color2": "blue" },
+      { "period": 1, "subject": "歴史総合", "location": "", "color": "gray" },
+      { "period": 2, "subject": "情報セキュ", "location": "PG", "color": "orange" },
+      { "period": 3, "subject": "情報プロ", "location": "SY", "color": "green" },
+      { "period": 4, "subject": "物理基礎", "location": "", "color": "gray" },
+      { "period": 5, "subject": "情報テク", "location": "DS", "color": "blue" }
+    ]
+  },
+  "3F": {
+    "月": [],
+    "火": [],
+    "水": [],
+    "木": [],
+    "金": []
+  },
+  "3M": {
+    "月": [],
+    "火": [],
+    "水": [],
+    "木": [],
+    "金": []
+  }
+}
