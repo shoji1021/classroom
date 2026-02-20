@@ -73,35 +73,52 @@ export default {
         const date = parseDate(text);
         if (!date) return;
 
-        // 改行や空白で分割し、1行（または1情報の塊）ずつ処理する
-        const lines = text.split(/[\n\r、,]/); 
+        const normalized = normalizeText(text);
+        
+        // 1. クラス(1M, 2Fなど)を基準に分割
+        const classSegments = normalized.split(/([1-3][FM])/gi).filter(Boolean);
+        
+        let currentClassYear = "";
 
-        lines.forEach(line => {
-          const normalized = normalizeText(line);
-          const classInfo = parseClass(normalized);
-          const periods = parsePeriods(normalized);
-
-          if (!classInfo || periods.length === 0) return;
-
-          const classYear = `${classInfo.year}${classInfo.type}`;
+        for (let i = 0; i < classSegments.length; i++) {
+          const segment = classSegments[i].trim();
           
-          // 【ここがポイント】
-          // その「行」の中で、時限（1hなど）より後ろにある文字列を科目名として抜き出す
-          const subjectMatch = normalized.match(/[1-6]h\s*(.+)$/);
-          const subject = subjectMatch ? subjectMatch[1].trim() : '授業変更';
+          // クラス名(1Mなど)に一致するかチェック
+          if (segment.match(/^[1-3][FM]$/i)) {
+            currentClassYear = segment.toUpperCase();
+            continue;
+          }
 
-          periods.forEach((p) => {
-            // period: p - 1 ではなく p そのまま（Next.jsの表示枠に合わせる）
-            changes.push({ 
-              date, 
-              classYear, 
-              period: p, 
-              day: '', 
-              newSubject: subject, 
-              description: line 
+          if (!currentClassYear) continue;
+
+          // 2. 時限と科目のペアを探す (例: "1h 英I 2h 清掃")
+          // 時限(1-6h)から、次の時限が始まる前までを科目名として取得
+          const periodMatches = segment.matchAll(/([1-6])h\s*([^1-6]+)/gi);
+          let found = false;
+
+          for (const match of periodMatches) {
+            found = true;
+            const period = parseInt(match[1]);
+            const subject = match[2].trim().split(/[\s,、]/)[0]; // スペースや読点の前までを科目名とする
+
+            changes.push({
+              date,
+              classYear: currentClassYear,
+              period: period, // Next.js側の表示に合わせて1〜6の数値
+              day: '',
+              newSubject: subject,
+              description: text
             });
-          });
-        });
+          }
+
+          // 時限が書いていないがクラス名がある場合（全日対応など）
+          if (!found && segment.length > 0) {
+             const subject = segment.split(/[\s,、]/)[0] || '授業変更';
+             for (let p = 1; p <= 6; p++) {
+               changes.push({ date, classYear: currentClassYear, period: p, day: '', newSubject: subject, description: text });
+             }
+          }
+        }
       });
 
       return new Response(JSON.stringify(changes), {
