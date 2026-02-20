@@ -48,82 +48,86 @@ function parseDate(text: string, year: number = 2026): string | null {
 // Workerのメイン処理
 export default {
   async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
-    // CORSヘッダー（Next.jsなどの別サイトからAPIを叩けるようにする）
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS',
       'Access-Control-Max-Age': '86400',
     };
 
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
-    }
+    if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
     try {
-      // 1. GoogleフォームのHTMLを取得
       const response = await fetch(FORM_URL);
       const html = await response.text();
       const $ = cheerio.load(html);
 
-      const items: any[] = [];
+      const items: string[] = [];
       $('div[role="listitem"]').each((_, el) => {
         const qTitle = $(el).find('div[role="heading"]').text().trim();
-        if (qTitle) items.push({ title: qTitle });
+        if (qTitle) items.push(qTitle);
       });
 
       const changes: Change[] = [];
 
-      // 2. データを解析してJSONの配列に変換
-      items.forEach((item) => {
-        const text = item.title;
+      items.forEach((text) => {
         const date = parseDate(text);
         if (!date) return;
 
         const normalized = normalizeText(text);
-        const classMatches = normalized.match(/([123])[\/\s]?([FM])/gi);
-        const classes: ClassInfo[] = [];
+        
+        // --- 修正ポイント：セグメントごとに解析 ---
+        // クラス名(1Mなど)を基準にテキストを分割して、それぞれの科目を特定しやすくします
+        const segments = normalized.split(/([1-3][FM])/gi).filter(Boolean);
+        let currentClasses: ClassInfo[] = [];
 
-        if (classMatches) {
-          classMatches.forEach(cText => {
-            const info = parseClass(cText);
-            if (info && !classes.find(c => c.year === info.year && c.type === info.type)) {
-              classes.push(info);
-            }
-          });
+        // 全学年などの処理
+        if (text.includes('全学年') || text.includes('全校')) {
+          ['1','2','3'].forEach(y => ['F','M'].forEach(t => currentClasses.push({year:y, type:t})));
         }
 
-        if (text.includes('全学年') || text.includes('全校') || (classes.length === 0 && (text.includes('行事') || text.includes('式典')))) {
-          classes.length = 0;
-          ['1','2','3'].forEach(y => ['F','M'].forEach(t => classes.push({year:y, type:t})));
-        }
+        for (let i = 0; i < segments.length; i++) {
+          const seg = segments[i];
+          const classInfo = parseClass(seg);
 
-        if (classes.length === 0) return;
+          if (classInfo) {
+            // クラス名が見つかった場合、その次のセグメントに時限と科目があるはず
+            currentClasses = [classInfo];
+            continue;
+          }
 
-        const rawPeriods = parsePeriods(text);
-        const periods = rawPeriods.length > 0 ? rawPeriods : [0];
-        const subject = text.split(/[\s　]/).pop() || '授業変更';
+          // このセグメント内の時限(1h, 2h...)を探す
+          const periods = parsePeriods(seg);
+          if (currentClasses.length === 0) continue;
 
-        // クラス×時限ごとにデータを展開（Next.js側が読みやすい形にする）
-        classes.forEach((classInfo) => {
-          const classYear = `${classInfo.year}${classInfo.type}`;
-          periods.forEach((period) => {
-            if (period === 0) {
-              for (let p = 0; p <= 6; p++) {
+          // 科目名を抽出（時限の後の文字列を取得）
+          // 例: "1h 英I" -> "英I"
+          let subject = seg.replace(/[1-6]h/gi, '').trim()
+                           .replace(/^[、,（）()]*/, '') // 不要な記号をカット
+                           .split(/[\s　]/)[0] || '授業変更';
+
+          const classYearList = currentClasses.map(c => `${c.year}${c.type}`);
+          
+          if (periods.length === 0) {
+            // 時限指定がない場合は全日(1-6)として登録
+            classYearList.forEach(classYear => {
+              for (let p = 1; p <= 6; p++) {
                 changes.push({ date, classYear, period: p, day: '', newSubject: subject, description: text });
               }
-            } else {
-              changes.push({ date, classYear, period: period - 1, day: '', newSubject: subject, description: text });
-            }
-          });
-        });
+            });
+          } else {
+            // 指定された時限ごとに登録
+            classYearList.forEach(classYear => {
+              periods.forEach(p => {
+                // period: p - 1 ではなく p そのままにする
+                changes.push({ date, classYear, period: p, day: '', newSubject: subject, description: text });
+              });
+            });
+          }
+        }
       });
 
-      // 3. JSONとして結果を返す
       return new Response(JSON.stringify(changes), {
-        headers: {
-          'Content-Type': 'application/json',
-          ...corsHeaders,
-        },
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
       });
 
     } catch (error: any) {
