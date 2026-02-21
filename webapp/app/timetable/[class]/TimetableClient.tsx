@@ -63,20 +63,12 @@ export default function TimetableClient({ className }: TimetableClientProps) {
       console.log('APIから取得成功:', data.length, '件');
       setChanges(data);
       
-      if (data.length > 0) {
-        const maxDateStr = data.reduce((max: string, change: any) => {
-          return change.date > max ? change.date : max;
-        }, data[0].date);
-        
-        const maxDate = new Date(maxDateStr);
-        generateWeekUpTo(maxDate);
-      } else {
-        generateDefaultWeek();
-      }
+      // 変更データがあっても4週間分を表示する
+      generateMonthAhead();
     } catch (error) {
       console.error('授業変更の読み込み失敗:', error);
       setChanges([]);
-      generateDefaultWeek();
+      generateMonthAhead();
     }
   };
 
@@ -96,6 +88,33 @@ export default function TimetableClient({ className }: TimetableClientProps) {
       if (dayOfWeek !== 0 && dayOfWeek !== 6) {
         week.push(date);
         daysAdded++;
+      }
+      offset++;
+    }
+    setCurrentWeek(week);
+  };
+
+  const generateMonthAhead = () => {
+    // 今日から4週間先までの平日を生成
+    const today = new Date();
+    const week: Date[] = [];
+    let offset = 0;
+    const fourWeeksLater = new Date(today);
+    fourWeeksLater.setDate(today.getDate() + 28);
+    
+    while (true) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + offset);
+      const dayOfWeek = date.getDay();
+      
+      // 平日のみ追加
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        week.push(date);
+      }
+      
+      // 4週間を超えたら終了
+      if (date >= fourWeeksLater) {
+        break;
       }
       offset++;
     }
@@ -255,8 +274,8 @@ export default function TimetableClient({ className }: TimetableClientProps) {
 
   const getGridTemplateColumns = (): string => {
     // 時間列 + 日付列 × currentWeek.length
-    // 各列に最小幅150pxを設定して見やすさを確保
-    return `80px repeat(${currentWeek.length}, minmax(150px, 1fr))`;
+    // 固定幅を使用してスクロール可能にする
+    return `80px repeat(${currentWeek.length}, 150px)`;
   };
 
   return (
