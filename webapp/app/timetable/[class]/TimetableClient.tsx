@@ -255,7 +255,8 @@ export default function TimetableClient({ className }: TimetableClientProps) {
 
   const getGridTemplateColumns = (): string => {
     // 時間列 + 日付列 × currentWeek.length
-    return `80px repeat(${currentWeek.length}, 1fr)`;
+    // 各列に最小幅150pxを設定して見やすさを確保
+    return `80px repeat(${currentWeek.length}, minmax(150px, 1fr))`;
   };
 
   return (
